@@ -115,7 +115,7 @@
 		//$pdf->ezText("(SPPD)",$nFont+2,array("justification"=>"center")) ;
 		$pdf->ezText("") ; 
 		$options=array('shaded'=>0,'width'=>220);
-		$pdf->ezTable($vaTable2,"","",array("showLines"=>1,"showHeadings"=>0,"fontSize"=>$nFont, "cols"=> 
+		$pdf->ezTable($vaTable2,"","",array("showLines"=>2,"showHeadings"=>0,"fontSize"=>$nFont, "cols"=> 
 											array("1"	=>array("width"=>4,"wrap"=>1),
 												  "2"	=>array("width"=>40,"wrap"=>1),
 												  "3"	=>array("width"=>56,"wrap"=>1) ) ), $options) ;
@@ -170,5 +170,4 @@
 
 		$pdf->ezStream() ; 
 
-	}  
-?> 
+	}
