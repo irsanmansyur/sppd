@@ -187,7 +187,7 @@ if (!empty($dbRow)) {
 	$pdf->ezText("");
 	$pdf->ezTable($tbl2, "", "", array("showLines" => $b, "showHeadings" => 2, "fontSize" => $nFont, "cols" =>
 	array(
-		"No." => array("width" => 4),
+		"No." => array("width" => 6),
 		"Nama/NIP" => array("width" => 30, "wrap" => 1),
 		"Pangkat/GOL" => array("width" => 20, "wrap" => 1),
 		"Jabatan" => array("width" => 20, "wrap" => 1),
