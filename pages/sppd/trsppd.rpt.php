@@ -82,12 +82,34 @@ if (!empty($dbRow)) {
 
 	$vaKepada 		= array();
 	$nRow 			= 1;
-	$vaKepada[]		= array("1" => "	", "2" => " ", "3" => $nRow++ . ".", "4" => "Nama/NIP", "5" => ":", "6" => $vaLeader['nama']);
+	$vaKepada[]		= array(
+		"1" => "	",
+		"2" => " ",
+		"3" => $nRow++ . ".",
+		"4" => "Nama/NIP", "5" => ":",
+		"6" => $vaLeader['nama']
+	);
+	$tbl2[] 	= [
+		"No." => "1",
+		"Nama/NIP" => $vaLeader['nama'],
+		"Pangkat/GOL" => $vaLeader_Gol['Description'] . " / " . $vaLeader_Gol['Title'],
+		"Jabatan" => $vaLeader['jabatan'],
+		"Keterangan" => " "
+	];
+
 	$vaKepada[]		= array("1" => "", "2" => "", "3" => "", "4" => "Pangkat / gol", "5" => ":", "6" => $vaLeader_Gol['Description'] . " / " . $vaLeader_Gol['Title']);
 	//$vaKepada[]		= array("1"=>"","2"=>"","3"=>"","4"=>"NIP","5"=>":","6"=>$vaLeader['nip']) ;
 	$vaKepada[]		= array("1" => "", "2" => "", "3" => "", "4" => "Jabatan", "5" => ":", "6" => $vaLeader['jabatan']);
+	$no  = 1;
 	foreach ($vaPengikut as $key => $vaData) {
-		$vaPengikut_Gol	= scSys::GetKeterangan("Title,Description", "Id = '{$vaData['golongan']}'", "sc_master");;
+		$vaPengikut_Gol	= scSys::GetKeterangan("Title,Description", "Id = '{$vaData['golongan']}'", "sc_master");
+		$tbl2[] 	= [
+			"No." => $no++,
+			"Nama/NIP" => $vaData['nama'],
+			"Pangkat/GOL" => $vaPengikut_Gol['Description'] . " / " . $vaPengikut_Gol['Title'],
+			"Jabatan" => $vaData['jabatan'],
+			"Keterangan" => " "
+		];
 		$vaKepada[]		= array("1" => "", "2" => "", "3" => $nRow++ . ".", "4" => "Nama", "5" => ":", "6" => $vaData['nama']);
 		$vaKepada[]		= array(
 			"1" => "", "2" => "", "3" => "", "4" => "Pangkat / gol", "5" => ":",
@@ -125,7 +147,7 @@ if (!empty($dbRow)) {
 	//$pdf->ezText("(SPPD)",$nFont+2,array("justification"=>"center")) ;
 	$pdf->ezText("");
 	$options = array('shaded' => 0, 'width' => 220);
-	$pdf->ezTable($vaTable2, "", "", array("showLines" => 2, "showHeadings" => 0, "fontSize" => $nFont, "cols" =>
+	$pdf->ezTable($vaTable2, "", "", array("showLines" => $b, "showHeadings" => 0, "fontSize" => $nFont, "cols" =>
 	array(
 		"1"	=> array("width" => 4, "wrap" => 1),
 		"2"	=> array("width" => 40, "wrap" => 1),
@@ -160,16 +182,17 @@ if (!empty($dbRow)) {
 	//										  "3"	=>array("wrap"=>1) ) )) ;
 	//$pdf->ezText("") ; 
 	//$pdf->ezText("MEMERINTAHKAN :",$nFont+2,array("justification"=>"center")) ;
+
+
 	$pdf->ezText("");
-	$pdf->ezTable($vaKepada, "", "", array("showLines" => 0, "showHeadings" => 0, "fontSize" => $nFont, "cols" =>
+	$pdf->ezTable($tbl2, "", "", array("showLines" => $b, "showHeadings" => 2, "fontSize" => $nFont, "cols" =>
 	array(
-		"1"	=> array("width" => 20, "wrap" => 1),
-		"2"	=> array("width" => 1),
-		"3"	=> array("width" => 4),
-		"4"	=> array("width" => 20, "wrap" => 1),
-		"5"	=> array("width" => 2),
-		"6"	=> array("wrap" => 1)
-	)));
+		"No." => array("width" => 4),
+		"Nama/NIP" => array("width" => 30, "wrap" => 1),
+		"Pangkat/GOL" => array("width" => 20, "wrap" => 1),
+		"Jabatan" => array("width" => 20, "wrap" => 1),
+		"Keterangan" => array("width" => 20, "wrap" => 1)
+	)), $options);
 	$pdf->ezText("");
 	$pdf->ezTable($vaUntuk, "", "", array("showLines" => 0, "showHeadings" => 0, "fontSize" => $nFont, "cols" =>
 	array("1"	=> array("width" => 37, "wrap" => 1, "justification" => "justify"))));
